@@ -79,10 +79,9 @@ class SiteController extends Controller
     {
         $user = new User();
         if($user -> load(Yii::$app->request->post())){
-            $user->permission = 2;
             $user->password = Yii::$app->getSecurity()->generatePasswordHash($user->password);
             $user->signUp();
-            return $this->render('reg_confirm');
+            return $this->render('index');
         }
         return $this->render("register", ["user"=>$user]);
     }
