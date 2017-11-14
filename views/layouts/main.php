@@ -24,7 +24,7 @@ AppAsset::register($this);
 <?php $this->beginBody();
 
 $guestNavbars = [
-    ['label' => 'Home', 'url' => ['/site    /index']],
+    ['label' => 'Home', 'url' => ['/site/index']],
     ['label' => 'Login', 'url' => ['/site/login']],
 ];
 

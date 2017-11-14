@@ -67,14 +67,17 @@ class PageController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->id;
-            if ($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen létrehoztam!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
             }
-        }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
-
+        }
     }
 
     /**
@@ -87,13 +90,19 @@ class PageController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen frissítettem!');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
+
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -104,8 +113,11 @@ class PageController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if($this->findModel($id)->delete()){
+            Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen töröltem!');
+        }else{
+            Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+        }
         return $this->redirect(['index']);
     }
 
