@@ -65,7 +65,12 @@ class PageController extends Controller
     {
         $model = new Page();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen létrehoztam!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,7 +89,12 @@ class PageController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen frissítettem!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -101,8 +111,11 @@ class PageController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if($this->findModel($id)->delete()){
+            Yii::$app->getSession()->setFlash('success', 'Az oldalt sikeresen töröltem!');
+        }else{
+            Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+        }
         return $this->redirect(['index']);
     }
 
