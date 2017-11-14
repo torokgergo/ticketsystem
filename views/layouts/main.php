@@ -85,7 +85,7 @@ if ( !yii::$app->user->isGuest){
             <div class="footlink">
                 <a href="/site/login">LOGIN</a></div>
 
-            
+
 
         <p class="pull-right"><?= Yii::powered() ?></p>
 
