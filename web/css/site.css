@@ -11,7 +11,38 @@ body {
     padding: 0 0 0px;
 }
 
+.username
+{
+    background-color: #f7f7f7;
+    padding: 8px;
+    color: #719fa4;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: bold;
+    margin: 5px;
+}
 
+.c{
+    letter-spacing: 2px;
+    font-family: GEORGIA;
+    size: 20px;
+    text-transform: capitalize;
+    font-style: italic;
+    font-size: 18px;
+}
+
+
+.regdate {
+
+    background-color: transparent;
+    padding: 8px;
+    font-size: 10px;
+
+    font-style: italic;
+
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}
 .content{
 
 
