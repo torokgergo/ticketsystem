@@ -17,15 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-<?php//= DetailView::widget([
-//        'model' => $model,
-//        'attributes' => [
-//            'id',
-//            'title',
-//            'content:ntext',
-//            'create_date',
-//            'user_id',
-//        ],
-//    ]) ?>
+    <div class="content"><?= Html::encode($model->content) ?></div>
+
+    <p></p>
+    <div class="c">Creator:</div>
+    <div class="row">
+      <div class="col-sm-4">
+
+          <div class="username"> <?= $model->user->name ?></div>
+      </div>
+
+    <div class="regdate"> <?= $model->user->reg_date ?></div></div>
 
 </div>
