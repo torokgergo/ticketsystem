@@ -37,9 +37,9 @@ if ( !yii::$app->user->isGuest){
     }
     $userNavbars  = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Page admin', 'url' => ['/page/index']],
         ['label' => 'Pages', 'items' => [$items]],
-        ['label' => 'Page', 'url' => ['/page/index']],
-        ['label' => 'Account (User)', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+        ['label' => 'Profile', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
         ['label' => 'Admins', 'url' => ['/user/index']],
         '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
     ];
