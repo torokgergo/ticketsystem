@@ -32,6 +32,66 @@ body {
 }
 
 
+.kk{
+    font-family: "Times New Roman";
+    font-style: italic;
+    color: #8cadc8;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.footlink
+{
+
+text-align: center;
+letter-spacing: 3px;
+    margin: 15px;
+    padding: 20px;
+font-family: "Times New Roman";
+text-transform: uppercase;
+background-color: #b4d1e9;
+    width: 15%;
+color: #ffffff;
+}
+
+
+
+.jb2{
+    background-color: transparent;
+    color: #999999;
+    text-aligN: center;
+    padding: 13px;
+    letter-spacing: -1.2px;
+    font-style: italic;
+    font-family: Times New Roman;
+    font-size: 34px;
+    font-weight: bold;
+}
+.jb{
+    background-color: transparent;
+    color: #3f729b;
+    text-transform: capitalize;
+    padding: 13px;
+    text-align: center;
+    letter-spacing: -1.2px;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.fs{
+
+    color: #3f729b;
+    text-transform: capitalize;
+
+
+    letter-spacing: -1.2px;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: 14px;
+
+
 .regdate {
 
     background-color: transparent;
