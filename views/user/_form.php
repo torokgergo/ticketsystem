@@ -18,12 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'room')->textInput() ?>
-
-    <?= $form->field($model, 'permission')->textInput() ?>
-
-    <?= $form->field($model, 'is_confirmed')->textInput() ?>
-
     <?= $form->field($model, 'reg_date')->textInput() ?>
 
     <div class="form-group">
