@@ -55,7 +55,7 @@ if ( !yii::$app->user->isGuest){
         'brandLabel' => 'My Company',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'ko',
         ],
     ]);
         if( yii::$app->user->isGuest){
