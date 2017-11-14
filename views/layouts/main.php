@@ -92,13 +92,16 @@ if ( !yii::$app->user->isGuest){
         <?= $content ?>
     </div>
 </div>
-
+<p></p><p></p>
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+
+            <div class="footlink">
+                <a href="/site/login">LOGIN</a></div>
+
+
 
         <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
+
 </footer>
 
 <?php $this->endBody() ?>
