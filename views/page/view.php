@@ -14,9 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="title1"><h1><?= Html::encode($this->title) ?></h1></div>
 
-
-
-
     <div class="content"><?= Html::encode($model->content) ?></div>
 
     <p></p>

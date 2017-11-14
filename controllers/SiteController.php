@@ -70,8 +70,11 @@ class SiteController extends Controller
 
     public function actionLogout()
     {
-        Yii::$app->user->logout();
-
+        if(Yii::$app->user->logout()){
+            Yii::$app->getSession()->setFlash('success', 'Sikeres kilépés!');
+        }else{
+            Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+        }
         return $this->goHome();
     }
 
@@ -80,7 +83,11 @@ class SiteController extends Controller
         $user = new User();
         if($user -> load(Yii::$app->request->post())){
             $user->password = Yii::$app->getSecurity()->generatePasswordHash($user->password);
-            $user->signUp();
+            if($user->signUp()){
+                Yii::$app->getSession()->setFlash('success', 'Sikeres regisztráció!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
             return $this->render('index');
         }
         return $this->render("register", ["user"=>$user]);
@@ -106,15 +113,5 @@ class SiteController extends Controller
             return $this->render("view", ["user"=>$user]);
         }
         return $this->render('update',['model'=>$user]);
-    }
-
-    public function actionEvents()
-    {
-        $event = new Event();
-        if($event -> load(Yii::$app->request->post()))
-        {
-            $event->save();
-        }
-        return $this->render("events", ["event"=>$event]);
     }
 }

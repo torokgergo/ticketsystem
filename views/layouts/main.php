@@ -5,6 +5,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use \app\models\Page;
 
 AppAsset::register($this);
 ?>
@@ -23,18 +24,31 @@ AppAsset::register($this);
 <?php $this->beginBody();
 
 $guestNavbars = [
-    ['label' => 'Home', 'url' => ['/page/index']],
+    ['label' => 'Home', 'url' => ['/site/index']],
     ['label' => 'Login', 'url' => ['/site/login']],
 ];
 
 if ( !yii::$app->user->isGuest){
 
+    $pages = Page::find()->all();
+    if (!empty($pages)) {
+        $items = [];
+        foreach ($pages as $page) {
+            $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
+        }
+    } else {
+        $items[] = ['label' => 'You have no pages'];
+    }
+    $items = [];
+    foreach ($pages as $page) {
+        $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
+    }
     $userNavbars  = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Page', 'url' => ['/site/index']],
-        ['label' => 'Account (User)', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+        ['label' => 'Page admin', 'url' => ['/page/index']],
+        ['label' => 'Pages', 'items' => $items],
+        ['label' => 'Profile', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
         ['label' => 'Admins', 'url' => ['/user/index']],
-
         '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
     ];
 }
@@ -61,7 +75,6 @@ if ( !yii::$app->user->isGuest){
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => $userNavbars,
                 ]);
-
         }
     NavBar::end();
     ?>
