@@ -29,19 +29,12 @@ $guestNavbars = [
 
 if ( !yii::$app->user->isGuest){
 
-    $adminNavbars = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Account (Admin)', 'url' => ['/site/view']],
-        ['label' => "Users ", 'url' => ['/admin/users']],
-        ['label' => 'Events', 'url' => ['/event/events']],
-        '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
-
-    ];
-
     $userNavbars  = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Account (User)', 'url' => ['/site/view']],
-        ['label' => 'Events', 'url' => ['/event/events']],
+        ['label' => 'Page', 'url' => ['/site/index']],
+        ['label' => 'Account (User)', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+        ['label' => 'Admins', 'url' => ['/user/index']],
+
         '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
     ];
 }
@@ -64,17 +57,11 @@ if ( !yii::$app->user->isGuest){
             ]);
 
         }else{
-            if (yii::$app->user->identity->permission == 1){
-                echo Nav::widget([
-                    'options' => ['class' => 'navbar-nav navbar-right'],
-                    'items' => $adminNavbars,
-                ]);
-            }else{
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => $userNavbars,
                 ]);
-            }
+
         }
     NavBar::end();
     ?>
