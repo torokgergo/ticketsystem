@@ -16,7 +16,7 @@
 
 </div>
 
-<div class="container">
+<div>
     <div class="row">
 
         <a href="link.php">
@@ -62,7 +62,7 @@
 
 
 
-        <img src="http://kephost.com/images/2017/11/07/Untitled-8.png" alt="Untitled-8.png" border="0" height="100px"/>
+        <p></p>
 
 
 

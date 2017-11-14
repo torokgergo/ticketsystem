@@ -5,9 +5,20 @@ body {
 
 .wrap {
     min-height: 100%;
+
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
+    padding: 0 0 0px;
+}
+
+.ko{
+    background-image: url(http://kephost.com/images/2017/11/14/bg1.png);
+    margin: 0 auto -60px;
+    color: #000000;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    font-family: tahoma;
+    size: 17px;
 }
 
 .wrap > .container {
@@ -25,6 +36,10 @@ body {
     text-align: center;
     background-color: transparent;
 }
+
+
+
+
 
 .jumbotron .btn {
     font-size: 21px;
@@ -212,3 +227,12 @@ a.desc:after {
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
+
+.asd {
+
+    background-color: #ebebeb;
+    letter-spacing: 1.3px;
+    color: #0000aa;
+
+}
+
