@@ -11,14 +11,20 @@ body {
     padding: 0 0 0px;
 }
 
+.title1
+{
+    letter-spacing: 2px;
+    size: 25px;
+}
+
 .ko{
-    background-image: url(http://kephost.com/images/2017/11/14/bg1.png);
+    background-image: url(img/navbarbg.png);
     margin: 0 auto -60px;
     color: #000000;
-    letter-spacing: 1.3px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    font-family: tahoma;
-    size: 17px;
+    font-family: georgia;
+    size: 20px;
 }
 
 .wrap > .container {

@@ -7,7 +7,7 @@
 
     <div class="row" id="box-search">
         <div class="thumbnail text-center">
-            <img src="http://kephost.com/images/2017/11/07/sadasd.png" alt="" class="img-responsive">
+            <img src="web/img/header.png" alt="" class="img-responsive">
             <div class="caption">
                 <span style="text-shadow: #bababa 0px 3px 2px 1px; color: #ffffff; font-family:times new roman,times,serif;"><em><span style="font-size:48px;">Nagyon motiváló szöveg</span></em></span>
             </div>
