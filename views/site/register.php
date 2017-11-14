@@ -9,7 +9,7 @@
         'options' => ['class' => 'form-horizontal'],
     ])
 ?>
-<?= $form->field($user, 'email', ['class' => '']) ?>
+<?= $form->field($user, 'email') ?>
 <?= $form->field($user, 'name') ?>
 <?= $form->field($user, 'room') ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
