@@ -95,8 +95,10 @@ if ( !yii::$app->user->isGuest){
 <p></p><p></p>
 <footer class="footer">
 
-            <div class="footlink">
-                <a href="/site/login">LOGIN</a></div>
+           <?= Yii::$app->user->isGuest ?
+               '<div class="footlink">
+                <a href="/site/login">LOGIN</a></div> '
+               : ''?>
 
 
 
