@@ -1,3 +1,7 @@
+<?php
+    $this->title = 'My Company';
+?>
+
 <div class="jumbotron text-center">
 
 
