@@ -5,6 +5,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use \app\models\Page;
 
 AppAsset::register($this);
 ?>
@@ -29,14 +30,32 @@ $guestNavbars = [
 
 if ( !yii::$app->user->isGuest){
 
+    $pages = Page::find()->all();
+    var_dump($pages);
+    $items = [];
+    foreach ($pages as $page) {
+        $item = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
+    }
     $userNavbars  = [
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Page', 'url' => ['/site/index']],
         ['label' => 'Account (User)', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
         ['label' => 'Admins', 'url' => ['/user/index']],
 
+        [
+            'label' => 'Dropdown',
+            'items' => [
+                ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
+                ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
+            ],
+        ],
+
+
+
+
         '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
     ];
+
 }
 
 ?>
@@ -61,7 +80,6 @@ if ( !yii::$app->user->isGuest){
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => $userNavbars,
                 ]);
-
         }
     NavBar::end();
     ?>
