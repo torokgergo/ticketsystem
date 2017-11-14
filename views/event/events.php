@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+    $this->title = 'Events';
 ?>
     <div class="user-view">
 

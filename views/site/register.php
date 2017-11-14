@@ -1,6 +1,8 @@
 <?php
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
+
+    $this->title = 'Register';
 ?>
 <h1>Registration Form</h1>
 <?php

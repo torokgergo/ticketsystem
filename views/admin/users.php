@@ -1,5 +1,7 @@
 <?php
 use yii\grid\GridView;
+
+    $this->title = 'Users';
 ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
