@@ -14,12 +14,9 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $password
  * @property string $name
- * @property integer $room
- * @property integer $permission
- * @property integer $is_confirmed
+ * @property Page[] $pages
  * @property string $reg_date
  *
- * @property EventApply[] $eventApplies
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -34,7 +31,6 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['email', 'password',], 'required'],
             [['password'], 'string'],
-            [['room', 'permission', 'is_confirmed'], 'integer'],
             [['reg_date'], 'safe'],
             [['email', 'name'], 'string', 'max' => 255],
         ];
@@ -47,9 +43,6 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'password' => 'Password',
             'name' => 'Name',
-            'room' => 'Room',
-            'permission' => 'Permission',
-            'is_confirmed' => 'Is Confirmed',
             'reg_date' => 'Reg Date',
         ];
     }
@@ -57,9 +50,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEventApplies()
+    public function getPages()
     {
-        return $this->hasMany(EventApply::className(), ['user_id' => 'id']);
+        return $this->hasMany(Page::className(), ['user_id' => 'id']);
     }
 
     public static function find()
