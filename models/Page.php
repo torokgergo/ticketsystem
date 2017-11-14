@@ -31,6 +31,7 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['title'], 'unique'],
             [['content'], 'string'],
             [['create_date'], 'safe'],
             [['user_id'], 'integer'],

@@ -31,14 +31,22 @@ $guestNavbars = [
 if ( !yii::$app->user->isGuest){
 
     $pages = Page::find()->all();
+    if (!empty($pages)) {
+        $items = [];
+        foreach ($pages as $page) {
+            $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
+        }
+    } else {
+        $items[] = ['label' => 'You have no pages'];
+    }
     $items = [];
     foreach ($pages as $page) {
-        $items = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
+        $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
     }
     $userNavbars  = [
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Page admin', 'url' => ['/page/index']],
-        ['label' => 'Pages', 'items' => [$items]],
+        ['label' => 'Pages', 'items' => $items],
         ['label' => 'Profile', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
         ['label' => 'Admins', 'url' => ['/user/index']],
         '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'

@@ -65,13 +65,16 @@ class PageController extends Controller
     {
         $model = new Page();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->id;
+            if ($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
             return $this->render('create', [
                 'model' => $model,
             ]);
-        }
+
     }
 
     /**

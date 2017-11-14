@@ -91,7 +91,6 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
             if($model->save()){
                 Yii::$app->getSession()->setFlash('success', 'A felhasználót sikeresen frissítettem!');
             }else{
@@ -99,7 +98,6 @@ class UserController extends Controller
             }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $model->password = null;
             return $this->render('update', [
                 'model' => $model,
             ]);
