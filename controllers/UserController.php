@@ -65,7 +65,13 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'A felhasználót sikeresen létrehoztam!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,9 +90,16 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            if($model->save()){
+                Yii::$app->getSession()->setFlash('success', 'A felhasználót sikeresen frissítettem!');
+            }else{
+                Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->password = null;
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -101,8 +114,11 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if( $this->findModel($id)->delete()){
+            Yii::$app->getSession()->setFlash('success', 'A felhasználót sikeresen töröltem!');
+        }else{
+            Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
+        }
         return $this->redirect(['index']);
     }
 
