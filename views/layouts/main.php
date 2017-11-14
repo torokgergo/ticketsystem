@@ -1,6 +1,4 @@
 <?php
-/* @var $this \yii\web\View */
-/* @var $content string */
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -49,7 +47,6 @@ if ( !yii::$app->user->isGuest){
     ];
 }
 
-
 ?>
 
 <div class="wrap">
@@ -87,8 +84,12 @@ if ( !yii::$app->user->isGuest){
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <div class="danger"><?= Yii::$app->session->getFlash('error'); ?></div>
-        <div class="row green"><?= Yii::$app->session->getFlash('success'); ?></div>
+        <?php if (Yii::$app->session->hasFlash('error')): ?>
+            <div class="alert alert-danger alert-dismissable"><?= Yii::$app->session->getFlash('error'); ?></div>
+        <?php endif; ?>
+        <?php if (Yii::$app->session->hasFlash('success')): ?>
+            <div class="alert alert-success alert-dismissable"><?= Yii::$app->session->getFlash('success'); ?></div>
+        <?php endif; ?>
         <?= $content ?>
     </div>
 </div>

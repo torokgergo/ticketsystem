@@ -1,6 +1,8 @@
 <?php
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
+
+    $this->title = 'Register';
 ?>
 <h1>Registration Form</h1>
 <?php
@@ -9,7 +11,7 @@
         'options' => ['class' => 'form-horizontal'],
     ])
 ?>
-<?= $form->field($user, 'email', ['class' => '']) ?>
+<?= $form->field($user, 'email') ?>
 <?= $form->field($user, 'name') ?>
 <?= $form->field($user, 'room') ?>
 <?= $form->field($user, 'password')->passwordInput() ?>
