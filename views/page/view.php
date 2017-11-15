@@ -10,9 +10,9 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-view">
+<div class="page-view text-center">
 
-    <div class="title1"><h1><?= Html::encode($this->title) ?></h1></div>
+    <div class="title1 c"><h1><?= Html::encode($this->title) ?></h1></div>
 
     <div class="content"><?= Html::encode($model->content) ?></div>
 
