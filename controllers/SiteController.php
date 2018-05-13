@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Event;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -17,12 +16,25 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['login', 'logout', 'registration', 'create-admin'],
                 'rules' => [
+                    [
+                        'actions' => ['login', 'registration'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['create-admin'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function($role, $action) {
+                            return User::isUserAdmin(Yii::$app->user->identity->email);
+                        }
                     ],
                 ],
             ],
@@ -59,59 +71,54 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        $LoginForm = new LoginForm();
+        if ($LoginForm->load(Yii::$app->request->post()) && $LoginForm->login()) {
             return $this->goBack();
         }
+
         return $this->render('login', [
-            'model' => $model,
+            'model' => $LoginForm,
         ]);
     }
 
     public function actionLogout()
     {
-        if(Yii::$app->user->logout()){
+        if (Yii::$app->user->logout()) {
             Yii::$app->getSession()->setFlash('success', 'Sikeres kilépés!');
-        }else{
+        } else {
             Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
         }
         return $this->goHome();
     }
 
-    public function actionRegister()
+    public function actionRegistration()
     {
         $user = new User();
-        if($user -> load(Yii::$app->request->post())){
+        if ($user->load(Yii::$app->request->post())) {
             $user->password = Yii::$app->getSecurity()->generatePasswordHash($user->password);
-            if($user->signUp()){
+            if ($user->save()) {
                 Yii::$app->getSession()->setFlash('success', 'Sikeres regisztráció!');
-            }else{
+            } else {
                 Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
             }
-            return $this->render('index');
+            return $this->goHome();
         }
-        return $this->render("register", ["user"=>$user]);
+        return $this->render('registration', ['user' => $user]);
     }
 
-    public function actionView()
+    public function actionCreateAdmin()
     {
-        $user = User::find()->where(['email' => Yii::$app->user->identity->email])->one();
-        if($user -> load(Yii::$app->request->post())){
-            $user->signUp();
-        }
-        return $this->render("view", ["user"=>$user]);
-    }
-
-    public function actionUpdate($id){
-        $user = User::findOne(['id'=>$id]);
-        if($user -> load(Yii::$app->request->post())){
-            if ($user->signUp()){
-                Yii::$app->getSession()->setFlash('success', 'A felhasználót adatait sikeresen frissítettem!');
-            }else{
+        $admin = new User();
+        if ($admin->load(Yii::$app->request->post())) {
+            $admin->password = Yii::$app->getSecurity()->generatePasswordHash($admin->password);
+            $admin->role = User::ROLE_ADMIN;
+            if ($admin->save()) {
+                Yii::$app->getSession()->setFlash('success', 'Az admint sikeresen létrehoztam!');
+            } else {
                 Yii::$app->getSession()->setFlash('error', 'Belső hiba történt!');
             }
-            return $this->render("view", ["user"=>$user]);
+            return $this->goHome();
         }
-        return $this->render('update',['model'=>$user]);
+        return $this->render('create_admin', ['user' => $admin]);
     }
 }

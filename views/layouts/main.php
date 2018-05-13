@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-use \app\models\Page;
+use app\models\Page;
+use app\models\User;
 
 AppAsset::register($this);
 ?>
@@ -22,67 +22,52 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody();
-
-$guestNavbars = [
-    ['label' => 'Home', 'url' => ['/site/index']],
-    ['label' => 'Login', 'url' => ['/site/login']],
-];
-
-if ( !yii::$app->user->isGuest){
-
-    $pages = Page::find()->all();
-    if (!empty($pages)) {
-        $items = [];
-        foreach ($pages as $page) {
-            $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
-        }
-    } else {
-        $items[] = ['label' => 'You have no pages'];
-    }
-    $items = [];
-    foreach ($pages as $page) {
-        $items[] = ['label' => $page->title, 'url' => ['page/view', 'id' => $page->id]];
-    }
-    $userNavbars  = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Page admin', 'url' => ['/page/index']],
-        ['label' => 'Pages', 'items' => $items],
-        ['label' => 'Profile', 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-        ['label' => 'Admins', 'url' => ['/user/index']],
-        '<li>' . Html::beginForm(['/site/logout'],'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm() . '</li>'
-    ];
-}
-
 ?>
 
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Ticket System',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'ko',
+            'class' => 'navbar navbar-inverse navbar-static-top',
+            'role' => 'navigation',
         ],
     ]);
-        if( yii::$app->user->isGuest){
+        if (yii::$app->user->isGuest) {
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $guestNavbars,
+                'items' => [
+                    ['label' => 'Regisztráció', 'url' => ['/site/registration']],
+                    ['label' => 'Bejelentkezés', 'url' => ['/site/login']],
+                ],
             ]);
-
-        }else{
-                echo Nav::widget([
+        } elseif (!User::isUserAdmin(Yii::$app->user->identity->email)) {
+            echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
-                    'items' => $userNavbars,
-                ]);
+                    'items' => [
+                        ['label' => 'Profil', 'url' => ['/user/profile']],
+                        ['label' => 'Saját Ticketek', 'url' => ['/ticket/own']],
+                        ['label' => 'Kilépés (' . Yii::$app->user->identity->email . ')', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+                    ],
+            ]);
+        } else {
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Profil', 'url' => ['/user/profile']],
+                    ['label' => 'Nyitott Ticketek', 'url' => ['/ticket/opened']],
+                    ['label' => 'Zárt Ticketek', 'url' => ['/ticket/closed']],
+                    ['label' => 'Adminok', 'url' => ['/user/admins']],
+                    ['label' => 'Felhasználók', 'url' => ['/user/list']],
+                    ['label' => 'Kilépés (' . Yii::$app->user->identity->email . ')', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+                ],
+            ]);
         }
     NavBar::end();
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?php if (Yii::$app->session->hasFlash('error')): ?>
             <div class="alert alert-danger alert-dismissable"><?= Yii::$app->session->getFlash('error'); ?></div>
         <?php endif; ?>
@@ -91,20 +76,8 @@ if ( !yii::$app->user->isGuest){
         <?php endif; ?>
         <?= $content ?>
     </div>
+
 </div>
-<p></p><p></p>
-<footer class="footer">
-
-           <?= Yii::$app->user->isGuest ?
-               '<div class="footlink">
-                <a href="/site/login">LOGIN</a></div> '
-               : ''?>
-
-
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-
-</footer>
 
 <?php $this->endBody() ?>
 </body>

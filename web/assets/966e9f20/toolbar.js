@@ -23,7 +23,7 @@
         },
         url,
         div,
-        toolbarEl = findToolbar(),
+        // toolbarEl = findToolbar(),
         toolbarAnimatingClass = 'yii-debug-toolbar_animating',
         barSelector = '.yii-debug-toolbar__bar',
         viewSelector = '.yii-debug-toolbar__view',
@@ -54,7 +54,7 @@
 
                 toolbarEl.parentNode && toolbarEl.parentNode.replaceChild(div, toolbarEl);
 
-                showToolbar(findToolbar());
+                // showToolbar(findToolbar());
             },
             error: function (xhr) {
                 toolbarEl.innerText = xhr.responseText;
